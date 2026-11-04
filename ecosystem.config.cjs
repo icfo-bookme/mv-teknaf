@@ -8,7 +8,7 @@ module.exports = {
     cwd: __dirname,
     script: './node_modules/next/dist/bin/next',
     interpreter: existsSync(appNode) ? appNode : process.execPath,
-    args: ['start', '--hostname', '127.0.0.1', '--port', '3000'],
+    args: ['start', '--hostname', '127.0.0.1', '--port', '3002'],
     instances: 1,
     exec_mode: 'fork',
     autorestart: true,

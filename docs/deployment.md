@@ -21,7 +21,7 @@ Existing `VPS_HOST`, `VPS_USER`, `VPS_PASSWORD` also work as fallbacks. Use one 
 - Git checkout: `/var/www/mv-teknaf`, with `origin` configured and access to fetch this repository. Private repositories need working server-side GitHub authentication, as in the other project.
 - Environment file: `/var/www/mv-teknaf/.env.production`. It is ignored by Git and preserved during sync. Rename/remove `.env.local` and `.env.production.local` on the VPS to avoid overriding it.
 - PM2 process: `mvteknaf`, owned by the SSH deployment user.
-- App port: `3000`, listening on `127.0.0.1`. Keep the existing domain reverse proxy pointed at that port.
+- App port: `3002`, listening on `127.0.0.1`. Keep the existing domain reverse proxy pointed at that port.
 - Node.js/npm and PM2 must already be installed. The script uses `.runtime` Node 22 if present, or installs it there if necessary, leaving global Node and other applications unchanged.
 
 `ecosystem.config.cjs` sets the working directory to this repository and applies the compatible Node runtime. This also moves any existing PM2 process off the old `releases/` deployment path. The workflow then explicitly runs `pm2 restart mvteknaf --update-env` and saves the process list.
