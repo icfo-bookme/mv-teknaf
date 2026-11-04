@@ -83,6 +83,12 @@ if ! pm2 startOrReload "$release/ecosystem.config.cjs" --update-env; then
   exit 1
 fi
 
+# Restart the named app explicitly after applying the new release configuration.
+if ! pm2 restart "$app" --update-env; then
+  rollback
+  exit 1
+fi
+
 # Verify the new process serves HTTP. This does not run the project's tests.
 healthy=false
 for attempt in $(seq 1 30); do
@@ -97,6 +103,6 @@ if [[ "$healthy" != true ]]; then
   exit 1
 fi
 ln -s "$release" "$base/current.next.$release_id"
-mv -Tf "$base/current.next" "$base/current"
+mv -Tf "$base/current.next.$release_id" "$base/current"
 pm2 save
 echo "Deployed release $release_id on port $port."
