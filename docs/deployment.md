@@ -17,12 +17,12 @@ No fingerprint, app-env secret or repository deploy key is required. SSH accepts
 
 ## One-time VPS setup
 
-The VPS needs Node.js 22+, npm, PM2, curl, tar and flock. Use the same SSH user for PM2 and deployment, with write access to `/var/www/mvteknaf`.
+The VPS needs a working Node.js/npm installation, PM2, curl, tar and flock. If Node is below 22.12, deployment automatically installs Node 22 into `/var/www/mv-teknaf/.runtime` for this app only. Global Node is unchanged; PM2 uses the selected runtime explicitly. Use the same SSH user for PM2 and deployment, with write access to `/var/www/mv-teknaf`.
 
 Keep your production app configuration on the VPS at:
 
 ```text
-/var/www/mvteknaf/.env.production
+/var/www/mv-teknaf/.env.production
 ```
 
 Use the same values as your local app, with `NEXT_PUBLIC_SITE_URL=https://mvteknaf.com.bd`. This file is preserved and copied into each new release before building. Do not commit it to Git. Deployment always uses `.env.production`; there are no other environment-file fallbacks.
@@ -36,7 +36,7 @@ Enable PM2 startup after reboot once with `pm2 startup`, follow the command it p
 - SSH port: `22`
 - App port: `3000`
 - App name in PM2: `mvteknaf`
-- Deployment path: `/var/www/mvteknaf`
+- Deployment path: `/var/www/mv-teknaf`
 
 These already work without any GitHub variables. Only if your server uses different settings, optional Actions Variables `VPS_SSH_PORT`, `APP_PORT`, `APP_NAME` and `VPS_DEPLOY_PATH` can override them. If the site already runs under PM2, use the same process name and user; another process must not occupy the app port.
 

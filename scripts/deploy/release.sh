@@ -15,7 +15,17 @@ fi
 for command in node npm pm2 curl flock; do
   command -v "$command" >/dev/null || { echo "Install $command on the VPS first. See docs/deployment.md."; exit 1; }
 done
-node -e 'if (Number(process.versions.node.split(".")[0]) < 22) { console.error("Node.js 22 or newer is required"); process.exit(1); }'
+# Keep a compatible runtime scoped to this app, without changing system Node.
+mkdir -p "$base/.runtime"
+if [[ -x "$base/.runtime/node_modules/node/bin/node" ]]; then
+  export PATH="$base/.runtime/node_modules/node/bin:$PATH"
+fi
+if ! node -e 'const [major, minor] = process.versions.node.split(".").map(Number); process.exit(major > 22 || (major === 22 && minor >= 12) ? 0 : 1)'; then
+  echo 'Installing app-local Node.js 22 (system Node is unchanged)...'
+  npm install --prefix "$base/.runtime" --no-save --no-package-lock --no-audit --no-fund node@22
+  export PATH="$base/.runtime/node_modules/node/bin:$PATH"
+fi
+node --version
 
 mkdir -p "$base/releases"
 exec 9>"$base/.deploy.lock"
@@ -46,6 +56,7 @@ fs.writeFileSync('ecosystem.config.cjs', 'module.exports = ' + JSON.stringify({
     name: process.env.DEPLOY_APP_NAME,
     cwd: process.cwd(),
     script: './node_modules/next/dist/bin/next',
+    interpreter: process.execPath,
     args: ['start', '--hostname', '127.0.0.1', '--port', process.env.DEPLOY_APP_PORT],
     instances: 1,
     exec_mode: 'fork',
