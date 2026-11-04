@@ -2,7 +2,7 @@
 
 Cruise information, packages, schedules and consultation requests, built with Next.js App Router, React and Tailwind CSS.
 
-## Local setup
+## Local setup ...
 
 Use Node.js 22 or newer. Run npm install, copy .env.example to .env.local and provide the configuration below. Then run npm run dev.
 
