@@ -46,3 +46,9 @@ next-env.d.ts
 
 # Unused nested project directory
 /mv-the-crown/
+
+/.runtime/
+/releases/
+/current
+/current.next.*
+/.deploy.lock

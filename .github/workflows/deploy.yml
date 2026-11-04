@@ -1,4 +1,5 @@
-name: Deploy to Hostinger VPS
+# MV Teknaf: push to main -> sync source, build, restart PM2 (port 3000).
+name: Deploy to Server
 
 on:
   push:
@@ -16,23 +17,53 @@ jobs:
   deploy:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
-      - name: Checkout source
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.2
         with:
-          persist-credentials: false
+          host: ${{ secrets.SSH_HOST || secrets.VPS_HOST }}
+          username: ${{ secrets.SSH_USER || secrets.VPS_USER }}
+          password: ${{ secrets.SSH_PASSWORD || secrets.VPS_PASSWORD }}
+          command_timeout: 30m
+          script: |
+            set -e
+            cd /var/www/mv-teknaf
+            echo "### Server was on commit: $(git rev-parse --short HEAD)"
+            git fetch origin main
+            git reset --hard origin/main
+            echo "### Server now on commit: $(git rev-parse --short HEAD)"
 
-      - name: Install SSH password support
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+            if [ ! -f .env.production ]; then
+              echo "Missing /var/www/mv-teknaf/.env.production"
+              exit 1
+            fi
+            if [ -f .env.local ] || [ -f .env.production.local ]; then
+              echo "Remove or rename .env.local/.env.production.local on the VPS; this project uses .env.production only."
+              exit 1
+            fi
 
-      - name: Deploy application
-        env:
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USER: ${{ secrets.VPS_USER }}
-          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
-          VPS_SSH_PORT: ${{ vars.VPS_SSH_PORT || '22' }}
-          VPS_DEPLOY_PATH: ${{ vars.VPS_DEPLOY_PATH || '/var/www/mv-teknaf' }}
-          APP_NAME: ${{ vars.APP_NAME || 'mvteknaf' }}
-          APP_PORT: ${{ vars.APP_PORT || '3000' }}
-        run: bash scripts/deploy/upload.sh
+            # Use the compatible app-local runtime from previous deployments.
+            # Global Node and other apps on this VPS remain unchanged.
+            if [ -s "$HOME/.nvm/nvm.sh" ]; then
+              . "$HOME/.nvm/nvm.sh"
+            fi
+            if [ -x /var/www/mv-teknaf/.runtime/node_modules/node/bin/node ]; then
+              export PATH="/var/www/mv-teknaf/.runtime/node_modules/node/bin:$PATH"
+            fi
+            if ! node -e 'const [major, minor] = process.versions.node.split(".").map(Number); process.exit(major > 22 || (major === 22 && minor >= 12) ? 0 : 1)'; then
+              npm install --prefix /var/www/mv-teknaf/.runtime --no-save --no-package-lock --no-audit --no-fund node@22
+              export PATH="/var/www/mv-teknaf/.runtime/node_modules/node/bin:$PATH"
+            fi
+            node --version
+            npm install --no-audit --no-fund
+            npm run build
+
+            # Apply the correct cwd/runtime, including migration from releases/.
+            pm2 startOrReload ecosystem.config.cjs --only mvteknaf --update-env
+            pm2 restart mvteknaf --update-env
+            pm2 save
+            sleep 5
+            pm2 status mvteknaf
+            echo "### Health check (HTTP 200/307 expected, 000 = app not up):"
+            curl -s -o /dev/null -w "127.0.0.1:3000 -> HTTP %{http_code}\n" http://127.0.0.1:3000 || true
