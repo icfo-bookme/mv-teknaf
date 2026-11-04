@@ -31,23 +31,20 @@ const ContactForm = ({ title }) => {
         };
 
         try {
-            await emailjs.send(
-                process.env.NEXT_PUBLIC_EMAIL_JS_SERVICEID,
-                process.env.NEXT_PUBLIC_EMAIL_JS_TEMPLATEID,
-                emailData,
-                process.env.NEXT_PUBLIC_EMAIL_JS_USERID
-            );
-
-            const apiResponse = await postPackageInfo(apiData);
-            if (apiResponse.error) {
-                toast.error("Failed to submit package info.");
-            } else {
-                toast.success("Submitted Successfully");
-                reset(); // Clear form after successful submission
+            await postPackageInfo(apiData);
+            // The saved consultation is authoritative; notification failure must not invite duplicate submissions.
+            reset();
+            toast.success("Submitted successfully. Our team will contact you shortly.");
+            const service = process.env.NEXT_PUBLIC_EMAIL_JS_SERVICEID;
+            const template = process.env.NEXT_PUBLIC_EMAIL_JS_TEMPLATEID;
+            const publicKey = process.env.NEXT_PUBLIC_EMAIL_JS_USERID;
+            if (service && template && publicKey) {
+                try { await emailjs.send(service, template, emailData, publicKey); }
+                catch { console.warn("Consultation saved; email notification could not be delivered."); }
             }
         } catch (error) {
             console.error("Error:", error);
-            toast.error("An error occurred while processing your request.");
+            toast.error(error.message || "Unable to submit. Please try again or call us.");
         }
     };
 
@@ -105,8 +102,8 @@ const ContactForm = ({ title }) => {
                         {...register("phoneNumber", {
                             required: "Phone number is required",
                             pattern: {
-                                value: /^[0-9]{11,}$/,
-                                message: "Phone number must be at least 11 digits and contain only numbers",
+                                value: /^(?:\+?88)?01[3-9][0-9]{8}$/,
+                                message: "Enter a valid Bangladesh mobile number",
                             },
                         })}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"

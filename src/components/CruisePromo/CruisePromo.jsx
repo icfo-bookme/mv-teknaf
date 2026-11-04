@@ -24,7 +24,7 @@ export default function CruisePromo() {
         <p className={`${roboto.className} text-gray-700 leading-relaxed text-justify`}>
           MV Teknaf is a modern passenger and sea-cruising vessel operating along the coastal waters of the Bay of Bengal. Designed for comfort and safety, Teknaf features air-conditioned seating, private cabins, an open deck for panoramic views, and onboard dining — redefining sea travel for the modern explorer.
           <br /><br />
-          Whether you are planning a family vacation, a romantic getaway, or an adventure trip, MV Teknaf ensures a memorable experience from the moment you step on board. Sail between Teknaf and Saint Martin's Island in comfort and style, and let the beauty of the Bay of Bengal create lasting memories.
+          Whether you are planning a family vacation, a romantic getaway, or an adventure trip, MV Teknaf ensures a memorable experience from the moment you step on board. Sail between Teknaf and Saint Martin&apos;s Island in comfort and style, and let the beauty of the Bay of Bengal create lasting memories.
         </p>
         <Link href="/get-a-call">
           <button style={{
@@ -41,7 +41,7 @@ export default function CruisePromo() {
           <Image
             src={crownImage}
             alt="MV Teknaf Cruise Ship"
-            fill
+            fill sizes="(min-width: 768px) 354px, 258px"
             style={{ objectFit: 'cover' }}
             priority
           />

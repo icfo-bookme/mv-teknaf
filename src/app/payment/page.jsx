@@ -14,7 +14,7 @@ export default function Page() {
   return (
     <div className="pt-0 bg-gray-50">
       <Banner
-        imageUrl="/13.png"
+        imageUrl="/SHIP/SHIP6.png"
         title="Payment Methods"
         subtitle=""
         heightClass=" h-[50vh] lg:h-[70vh]"

@@ -16,10 +16,9 @@ import Image from "next/image";
 
 export default async function Home() {
 
-  const packages = await getPackages(819);
-  const schedules = await getSchedules(819);
-  const images = await getPropertyImages(819);
-  const foodAndDescription = await getFoodAndDescription(819)
+  const [packages, schedules, images, foodAndDescription] = await Promise.all([
+    getPackages(819), getSchedules(819), getPropertyImages(819), getFoodAndDescription(819),
+  ]);
   return (
     <main className="bg-gray-50">
       <div>

@@ -1,6 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { getCallHref, getWhatsAppHref } from "@/config/contact";
+
+
+import { useState } from 'react';
 import { Roboto } from 'next/font/google';
 import { FaPhoneAlt, FaWhatsapp } from 'react-icons/fa';
 import PrimaryButton from '../ui/Button';
@@ -8,13 +11,8 @@ import PrimaryButton from '../ui/Button';
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
 
 export default function Schedules({ schedules }) {
-    const [activeMonth, setActiveMonth] = useState('');
-
-    useEffect(() => {
-        if (schedules && Object.keys(schedules).length > 0) {
-            setActiveMonth(Object.keys(schedules)[0]);
-        }
-    }, [schedules]);
+    const [selectedMonth, setActiveMonth] = useState('');
+    const activeMonth = Object.hasOwn(schedules || {}, selectedMonth) ? selectedMonth : Object.keys(schedules || {})[0];
 
     if (!schedules || Object.keys(schedules).length === 0) {
         return (
@@ -31,7 +29,7 @@ export default function Schedules({ schedules }) {
             weekday: 'short',
             month: 'short',
             day: 'numeric',
-            year: 'numeric'
+            year: 'numeric', timeZone: 'Asia/Dhaka'
         });
     };
 
@@ -57,12 +55,12 @@ export default function Schedules({ schedules }) {
     };
 
     const handleCall = () => {
-        window.location.href = 'tel:+8801841999922';
+        window.location.href = getCallHref();
     };
 
     const handleWhatsApp = () => {
         const message = "Hello, I am interested in booking a package on MV Teknaf.";
-        const url = `https://wa.me/8801841999922?text=${encodeURIComponent(message)}`;
+        const url = getWhatsAppHref(message);
         window.open(url, '_blank');
     };
 
@@ -73,7 +71,7 @@ export default function Schedules({ schedules }) {
                 <h2 className="text-2xl sm:text-3xl font-bold text-blue-950">
                     Upcoming Schedule Of <span className="text-red-600">MV Teknaf</span>
                 </h2>
-                <h3 className="text-lg sm:text-2xl mt-2 font-semibold text-gray-700">Teknaf - Saint Martin's Island - Teknaf</h3>
+                <h3 className="text-lg sm:text-2xl mt-2 font-semibold text-gray-700">Teknaf - Saint Martin&apos;s Island - Teknaf</h3>
                 <p className="text-sm sm:text-base font-semibold text-red-700 mt-1">“Schedule may change with tidal state’’</p>
             </div>
 
@@ -100,7 +98,7 @@ export default function Schedules({ schedules }) {
                 </div>
 
                 {/* Schedule Table */}
-                <div className="p-4  sm:p-6 w-full">
+                <div className="p-4 sm:p-6 w-full overflow-x-auto">
                     {Object.entries(schedules).map(([month, monthSchedules]) => (
                         <div key={month} className={`${activeMonth === month ? 'block' : 'hidden'}`}>
                             <table className="w-full table-auto divide-y divide-gray-200">

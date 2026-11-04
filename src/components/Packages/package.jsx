@@ -1,6 +1,6 @@
 'use client';
-
-import { useState, useEffect } from 'react';
+import { getCallHref, getWhatsAppHref } from "@/config/contact";
+import { useState } from 'react';
 import Image from 'next/image';
 import {
     FaPhoneAlt,
@@ -20,46 +20,19 @@ export default function Packages({ packages, foodAndDescription }) {
     const [selectedDescription, setSelectedDescription] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
-
-        return () => clearTimeout(timer);
-    }, []);
-    useEffect(() => {
-        if (isModalOpen) {
-            // Fix background scroll and prevent "jump"
-            const scrollBarCompensation = window.innerWidth - document.body.offsetWidth;
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = `${scrollBarCompensation}px`;
-        } else {
-            document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '0px';
-        }
-
-        return () => {
-            document.body.style.overflow = 'auto';
-            document.body.style.paddingRight = '0px';
-        };
-    }, [isModalOpen]);
     const openModal = (description) => {
         setSelectedDescription(description);
         setIsModalOpen(true);
-        document.body.style.overflow = 'hidden';
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
         setSelectedDescription(null);
-        document.body.style.overflow = 'unset';
     };
 
     const handleCall = () => {
-        window.location.href = 'tel:+8801841999922';
+        window.location.href = getCallHref();
     };
 
     const handleBook = () => {
@@ -68,7 +41,7 @@ export default function Packages({ packages, foodAndDescription }) {
 
     const handleWhatsApp = () => {
         const message = "Hello, I'm interested in booking a package on MV Teknaf.";
-        const url = `https://wa.me/8801841999922?text=${encodeURIComponent(message)}`;
+        const url = getWhatsAppHref(message);
         window.open(url, '_blank');
     };
 
@@ -91,33 +64,15 @@ export default function Packages({ packages, foodAndDescription }) {
         if (!basePrice) return null;
 
         if (pkg.discount_percent && pkg.discount_percent > 0) {
-            return Math.round(basePrice * (1 - pkg.discount_percent / 100));
+            return Math.max(0, Math.round(basePrice * (1 - pkg.discount_percent / 100)));
         } else if (pkg.discount_amount && pkg.discount_amount > 0) {
-            return Math.round(basePrice - pkg.discount_amount);
+            return Math.max(0, Math.round(basePrice - pkg.discount_amount));
         }
 
         return basePrice;
     };
 
     const imageBaseUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
-
-    if (error) {
-        return (
-            <div className="max-w-5xl mx-auto px-4 py-12">
-                <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-                    <FaExclamationTriangle className="w-12 h-12 mx-auto text-red-500 mb-4" />
-                    <h3 className="text-xl font-semibold text-red-800 mb-2">Unable to Load Packages</h3>
-                    <p className="text-red-600 mb-4">{error}</p>
-                    <button
-                        onClick={() => window.location.reload()}
-                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors"
-                    >
-                        Try Again
-                    </button>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className='bg-[#FFFFFF] '>
@@ -133,45 +88,20 @@ export default function Packages({ packages, foodAndDescription }) {
                         onClick={() => setShowModal(true)}
                         className="bg-gradient-to-r from-[#313881] to-[#0678B4] text-white px-6 py-3 mt-3 rounded-lg"
                     >
-                        Food & Travel Description
+                        Travel Description
                     </button>
                     <div className='max-h-[80vh]'>
                         <Modal
                             isOpen={showModal}
                             onClose={() => setShowModal(false)}
-                            title="MV Teknaf Food & Travel Description"
+                            title="MV Teknaf Travel Description"
                             foodAndDescription={foodAndDescription}
                         />
                     </div>
 
                 </div>
                 <div className={`${roboto.className}`}>
-                    {isLoading ? (
-                        <div className="grid grid-cols-1 gap-8">
-                            {[1, 2, 3].map((item) => (
-                                <div key={item} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 animate-pulse">
-                                    <div className="flex flex-col md:flex-row">
-                                        <div className="md:w-2/5 h-64 md:h-auto bg-gray-300"></div>
-                                        <div className="md:w-3/5 p-6">
-                                            <div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-                                            <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-                                            <div className="h-4 bg-gray-300 rounded w-5/6 mb-4"></div>
-                                            <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
-                                            <div className="h-4 bg-gray-300 rounded w-4/5 mb-6"></div>
-                                            <div className="flex justify-between">
-                                                <div className="h-8 bg-gray-300 rounded w-1/4"></div>
-                                                <div className="flex gap-3">
-                                                    <div className="h-10 bg-gray-300 rounded w-24"></div>
-                                                    <div className="h-10 bg-gray-300 rounded w-24"></div>
-                                                    <div className="h-10 bg-gray-300 rounded w-24"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    ) : packages && packages.length > 0 ? (
+                    {packages && packages.length > 0 ? (
                         <div className="grid grid-cols-1 gap-8">
                             {packages.map((pkg) => {
                                 const hasDiscount =
@@ -229,14 +159,6 @@ export default function Packages({ packages, foodAndDescription }) {
                                                         </span>
                                                     </div>
 
-                                                    <div className="flex flex-wrap gap-3 mb-4 text-sm text-gray-900">
-                                                        <span><strong className="mr-1">Capacity:</strong> {pkg.person_allowed} persons</span>
-                                                        <span className="text-blue-950">•</span>
-                                                        <span><strong className="mr-1">Extra Bed:</strong> {pkg.additionalbed}</span>
-                                                        <span className="text-blue-950">•</span>
-                                                        <span><strong className="mr-1">Type:</strong> {pkg.unit_type}</span>
-                                                    </div>
-
                                                     {pkg.description && (
                                                         <div className="mb-2">
                                                             <p className="text-gray-900">
@@ -259,17 +181,17 @@ export default function Packages({ packages, foodAndDescription }) {
                                                     <div className="mb-4 sm:mb-0 flex gap-4 ">
                                                         {/* Single Trip */}
                                                         {singleTripPrice !== null && (
-                                                            <div className="bg-blue-50 p-4 rounded-lg space-y-2">
+                                                            <div className="bg-blue-50 p-4 rounded-lg ">
                                                                 {/* Duration Label */}
 
 
                                                                 {/* Price Label */}
-                                                                <p className="text-sm text-red-600 font-medium">Price</p>
+                                                                <p className="text-sm text-red-600 font-medium">Single Trip</p>
 
                                                                 {/* Price Section */}
                                                                 <div className="flex items-center">
                                                                     {hasDiscount && (
-                                                                        <p className="text-sm text-gray-500 line-through mr-2">
+                                                                        <p className="text-sm text-gray-500 line-through">
                                                                             {Math.round(pkg.price)} TK
                                                                         </p>
                                                                     )}
@@ -278,11 +200,9 @@ export default function Packages({ packages, foodAndDescription }) {
                                                                     </p>
                                                                 </div>
                                                                 <div className='flex items-center justify-center'>
-                                                                    <p className="text-xs font-semibold text-blue-800 bg-blue-100 px-2 py-1 inline-block rounded">
-                                                                        {pkg.Validity}
-                                                                    </p>
+
                                                                     {/* Price Note */}
-                                                                    <p className="text-xs text-gray-500">/ Per person</p>
+                                                                    <p className="text-xs text-gray-500">Per person</p>
                                                                 </div>
 
                                                             </div>
@@ -372,39 +292,9 @@ export default function Packages({ packages, foodAndDescription }) {
                         </div>
                     )}
 
-                    {/* Modal */}
-                    {isModalOpen && (
-                        <div
-                            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 px-4"
-                            onClick={closeModal}
-                        >
-                            <div
-                                className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col"
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                <div className="flex justify-between items-center p-6 border-b">
-                                    <h3 className="text-xl font-bold text-gray-800">Package Details</h3>
-                                    <button
-                                        onClick={closeModal}
-                                        className="text-gray-500 hover:text-gray-700 text-2xl"
-                                    >
-                                        <FaTimes />
-                                    </button>
-                                </div>
-                                <div className="p-6 overflow-y-auto">
-                                    <p className="text-gray-700 whitespace-pre-line">{selectedDescription}</p>
-                                </div>
-                                <div className="p-6 border-t bg-gray-50 flex justify-end">
-                                    <button
-                                        onClick={closeModal}
-                                        className="bg-gradient-to-r from-[#313881] to-[#0678B4] hover:bg-blue-700 text-white px-5 py-2 rounded-lg"
-                                    >
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                    <Modal isOpen={isModalOpen} onClose={closeModal} title="Package Details">
+                        <p className="whitespace-pre-line">{selectedDescription}</p>
+                    </Modal>
                 </div>
             </div></div>
     );

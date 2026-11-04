@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MV Teknaf
 
-## Getting Started
+Cruise information, packages, schedules and consultation requests, built with Next.js App Router, React and Tailwind CSS.
 
-First, run the development server:
+## Local setup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Use Node.js 22 or newer. Run npm install, copy .env.example to .env.local and provide the configuration below. Then run npm run dev.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- NEXT_PUBLIC_BASE_URL: booking API origin; also permits images under its /storage/ path.
+- NEXT_PUBLIC_SITE_URL: public website origin for SEO/social sharing. The default production origin is https://mvteknaf.com.bd.
+- NEXT_PUBLIC_EMAIL_JS_SERVICEID, NEXT_PUBLIC_EMAIL_JS_TEMPLATEID, NEXT_PUBLIC_EMAIL_JS_USERID: optional EmailJS browser configuration. Consultation storage succeeds independently of email delivery. These public identifiers are intentionally visible in the browser; configure allowed origins and abuse controls in EmailJS.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Checks and deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run npm run lint, npm test and npm run build. Run npm start to serve the production build. The optional custom server uses PORT (default 3000).
 
-## Learn More
+The booking API is external. GET responses are checked for HTTP errors and expected structure, use a 10-second timeout and revalidate hourly. A failed request displays a retryable error instead of claiming no availability. An empty schedule list is a valid response.
 
-To learn more about Next.js, take a look at the following resources:
+Forms POST to /api/tour-consultations. Local automated checks mock network requests; they never send customer enquiries or emails. Confirm the full production submission flow with an authorized test enquiry before launch.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Security and assets
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Rich descriptions are sanitized before rendering. Dialogs use native modal focus management, Escape handling, background scroll locking and focus restoration.
 
-## Deploy on Vercel
+.env.local is ignored and removed from Git tracking. Earlier commits may still contain it: review historical values and rotate any private credentials through their providers. Git history has not been rewritten.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The footer and shared page banner use compressed WebP files. Original images and legacy template assets are retained to avoid deleting potentially needed material; unused static assets do not enter page bundles automatically.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contact numbers
+
+Edit src/config/contact.js to change primaryPhone and secondaryPhone across the website. whatsappPhone defaults to primaryPhone when left empty; set it only for a separate WhatsApp number. Call and WhatsApp URLs are derived automatically. Rebuild and redeploy after changes. Payment merchant and bank account numbers are separate from contact numbers.

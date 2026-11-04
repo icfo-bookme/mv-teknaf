@@ -1,74 +1,51 @@
 'use client';
+import { useEffect, useId, useRef } from 'react';
+import sanitizeHtml from 'sanitize-html';
 
-import { useEffect } from 'react';
-
-const CustomModal = ({ isOpen, onClose, title, foodAndDescription }) => {
+export default function CustomModal({ isOpen, onClose, title, foodAndDescription, children }) {
+  const ref = useRef(null);
+  const titleId = useId();
+  const closeRef = useRef(onClose);
+  useEffect(() => { closeRef.current = onClose; }, [onClose]);
   useEffect(() => {
-    if (isOpen) {
-      // Fix background scroll and prevent "jump"
-      const scrollBarCompensation = window.innerWidth - document.body.offsetWidth;
-      document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = `${scrollBarCompensation}px`; 
-    } else {
-      document.body.style.overflow = 'auto';
-      document.body.style.paddingRight = '0px';
-    }
-
+    const dialog = ref.current;
+    if (!isOpen) return;
+    const previousFocus = document.activeElement;
+    const { overflow, paddingRight } = document.body.style;
+    document.body.style.paddingRight = (window.innerWidth - document.documentElement.clientWidth) + 'px';
+    document.body.style.overflow = 'hidden';
+    dialog.showModal();
+    const cancel = event => { event.preventDefault(); closeRef.current(); };
+    dialog.addEventListener('cancel', cancel);
     return () => {
-      document.body.style.overflow = 'auto';
-      document.body.style.paddingRight = '0px';
+      dialog.removeEventListener('cancel', cancel);
+      dialog.close();
+      document.body.style.overflow = overflow;
+      document.body.style.paddingRight = paddingRight;
+      previousFocus?.focus();
     };
   }, [isOpen]);
-
-  if (!isOpen) return null;
-
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center w-full bg-black bg-opacity-50"
-      onClick={onClose} 
-    >
-      <div
-        className="relative w-full max-w-2xl h-[90vh] flex flex-col bg-white dark:bg-gray-700 rounded-lg shadow-lg"
-        onClick={(e) => e.stopPropagation()} 
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b dark:border-gray-600 border-gray-200">
-          <h3 className="text-xl text-center font-semibold text-gray-900 dark:text-white">
-            {title}
-          </h3>
-          <button
-            onClick={onClose}
-            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg w-8 h-8 flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-          >
-            ✕
-          </button>
+    <dialog ref={ref} aria-labelledby={titleId} aria-modal="true"
+      className="m-auto w-[calc(100%-2rem)] max-w-2xl max-h-[90vh] rounded-xl bg-white p-0 shadow-xl backdrop:bg-black/60"
+      onClick={event => { if (event.target === ref.current) onClose(); }}>
+      <div className="flex max-h-[90vh] flex-col" onClick={event => event.stopPropagation()}>
+        <div className="flex items-center justify-between border-b p-4">
+          <h2 id={titleId} className="text-xl font-semibold text-gray-900">{title}</h2>
+          <button type="button" onClick={onClose} aria-label="Close dialog" className="rounded px-3 py-2 text-gray-700">?</button>
         </div>
-
-        {/* Body */}
-        <div className="flex-1 p-4 overflow-y-auto">
-          {foodAndDescription?.map((item) => (
-            <div key={item.id} className="p-4 border rounded mb-4">
-              <h3 className="font-bold text-lg">{item.facilty_name || ""}</h3>
-              <div
-                className="mt-2 text-gray-700"
-                dangerouslySetInnerHTML={{ __html: item.value }}
-              />
+        <div className="overflow-y-auto p-4 text-gray-800">
+          {children || (Array.isArray(foodAndDescription) && foodAndDescription.length ? foodAndDescription.map(item => (
+            <div key={item.id} className="mb-4 rounded border p-4">
+              <h3 className="text-lg font-bold">{item.facilty_name || item.facility_name || ''}</h3>
+              <div className="custom-content mt-2" dangerouslySetInnerHTML={{ __html: sanitizeHtml(String(item.value || '')) }} />
             </div>
-          ))}
+          )) : <p>No travel description is available yet. Please contact us for details.</p>)}
         </div>
-
-        {/* Footer */}
-        <div className="flex items-center justify-end p-4 border-t dark:border-gray-600 border-gray-200">
-          <button
-            onClick={onClose}
-            className="bg-gradient-to-r from-[#313881] to-[#0678B4] text-white px-4 py-2 rounded"
-          >
-            Close
-          </button>
+        <div className="flex justify-end border-t p-4">
+          <button type="button" onClick={onClose} className="rounded bg-blue-900 px-4 py-2 text-white">Close</button>
         </div>
       </div>
-    </div>
+    </dialog>
   );
-};
-
-export default CustomModal;
+}

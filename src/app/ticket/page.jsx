@@ -12,12 +12,11 @@ export const metadata = {
 
 
 export default async function Page() {
-  const packages = await getPackages(819);
-  const foodAndDescription = await getFoodAndDescription(819)
+  const [packages, foodAndDescription] = await Promise.all([getPackages(819), getFoodAndDescription(819)]);
   return (
     <div className="pt-0 bg-gray-50">
       <Banner
-        imageUrl="/13.png"
+        imageUrl="/SHIP/SHIP6.png"
         title="Ticket Booking"
         subtitle=""
         heightClass=" h-[50vh] lg:h-[70vh]"

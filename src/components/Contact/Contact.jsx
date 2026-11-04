@@ -1,6 +1,8 @@
+import Image from "next/image";
+import { contact } from "@/config/contact";
 
 const { default: Link } = require("next/link");
-const { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF, FaCrown } = require("react-icons/fa");
+const { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaFacebookF } = require("react-icons/fa");
 const { default: ContactForm } = require("../ContactForm/ContactForm");
 
 
@@ -43,7 +45,7 @@ export const Contact = () => {
               <div>
                 <h3 className="font-semibold text-lg text-gray-800">Phone</h3>
                 <p className="text-gray-600">
-                  01841999922 <br />
+                  {contact.primaryPhone} <br />
 
                 </p>
               </div>
@@ -76,7 +78,7 @@ export const Contact = () => {
             <div className="md:pt-20">
               <hr className="border-gray-300 mb-4" />
               <h3 className="text-2xl text-blue-950 font-bold mb-4 flex items-center">
-                <FaCrown className="mr-2 text-blue-600 -mt-2" />
+                <Image src="/mv-logo.png" alt="" width={818} height={442} style={{ width: 60, height: "auto" }} className="mr-3 shrink-0 object-contain brightness-0" />
                 MV Teknaf
               </h3>
                 <p className="text-gray-700 mb-4 max-w-md">

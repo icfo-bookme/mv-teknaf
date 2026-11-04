@@ -1,16 +1,19 @@
 "use client";
 
+import { getCallHref, getWhatsAppHref } from "@/config/contact";
+
+
 import PrimaryButton from "@/components/ui/Button";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
 const CTAButtons = () => {
   const handleCall = () => {
-    window.location.href = "tel:+8801841999922";
+    window.location.href = getCallHref();
   };
 
   const handleWhatsApp = () => {
     const message = "Hello, I'm interested in booking a package on MV Teknaf.";
-    const url = `https://wa.me/8801841999922?text=${encodeURIComponent(message)}`;
+    const url = getWhatsAppHref(message);
     window.open(url, "_blank");
   };
 

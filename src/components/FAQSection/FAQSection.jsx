@@ -27,7 +27,7 @@ const FAQSection = () => {
 
           <details>
             <summary className="py-2 outline-none cursor-pointer focus:underline">
-               What is included in the Teknaf to Saint Martin's Island Cruise?
+               What is included in the Teknaf to Saint Martin&apos;s Island Cruise?
             </summary>
             <div className="px-4 pb-4">
               <p className="font-semibold">Inclusions:</p>
@@ -51,10 +51,10 @@ const FAQSection = () => {
                What is the typical itinerary?
             </summary>
             <div className="px-4 pb-4 space-y-1">
-              <p><strong>7:00 AM:</strong> Departure from Nuniarchhara BIWTA Ghat, Cox's Bazar (or Damdamia Ghat, Teknaf). (Passengers are advised to arrive at the jetty by 6:30 AM / 30 minutes prior).</p>
-              <p><strong>12:00 PM – 12:30 PM:</strong> Arrival at Saint Martin's Island Jetty.</p>
+              <p><strong>7:00 AM:</strong> Departure from Nuniarchhara BIWTA Ghat, Cox&apos;s Bazar (or Damdamia Ghat, Teknaf). (Passengers are advised to arrive at the jetty by 6:30 AM / 30 minutes prior).</p>
+              <p><strong>12:00 PM – 12:30 PM:</strong> Arrival at Saint Martin&apos;s Island Jetty.</p>
               <p><strong>12:30 PM &ndash; 3:00 PM:</strong> Free time for sightseeing, lunch, and exploration on the island.</p>
-              <p><strong>3:00 PM:</strong> Return departure from Saint Martin's Island Jetty back to Teknaf.</p>
+              <p><strong>3:00 PM:</strong> Return departure from Saint Martin&apos;s Island Jetty back to Teknaf.</p>
               <p><strong>7:30 PM &ndash; 8:00 PM:</strong> Arrival back at the origin jetty.</p>
               <p className="mt-2">
                 Book your <Link href="/ticket" className="text-blue-800 font-semibold">Ticket</Link> today.
@@ -104,7 +104,7 @@ const FAQSection = () => {
               </ul>
               <p className="font-semibold mt-2">Cash:</p>
               <ul className="list-disc pl-5 space-y-1">
-                <li>Accepted directly at authorized offline booking counters in Dhaka, Cox's Bazar, or Chittagong</li>
+                <li>Accepted directly at authorized offline booking counters in Dhaka, Cox&apos;s Bazar, or Chittagong</li>
               </ul>
               <p className="mt-2">
                 Make payment via our <Link href="/payment" className="text-blue-800 font-semibold">Payment Options</Link> page.
@@ -125,7 +125,7 @@ const FAQSection = () => {
               <ul className="list-disc pl-5 space-y-1">
                 <li>Cancellations within 96 hours of departure are non-refundable</li>
                 <li>Cancellations prior to 96 hours (with valid medical or emergency proof) incur standard deduction charges (30–40%) subject to operator discretion</li>
-                <li>No refund is provided if a passenger misses the ship's scheduled departure</li>
+                <li>No refund is provided if a passenger misses the ship&apos;s scheduled departure</li>
               </ul>
               <p className="mt-2">
                 For questions, <Link href="/contact" className="text-blue-800 font-semibold">Contact Us</Link>.
@@ -170,7 +170,7 @@ const FAQSection = () => {
                 <li>Printed or Digital Copy of your Ship Ticket</li>
                 <li>Motion sickness / anti-nausea medication (if prone to seasickness)</li>
                 <li>Sunscreen, sunglasses, and light cotton clothing</li>
-                <li>Sufficient cash (ATMs on Saint Martin's Island can be unreliable)</li>
+                <li>Sufficient cash (ATMs on Saint Martin&apos;s Island can be unreliable)</li>
               </ul>
             </div>
           </details>

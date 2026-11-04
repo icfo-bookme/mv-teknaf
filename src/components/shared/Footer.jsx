@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { phoneNumbers, getCallHref } from "@/config/contact";
 import Link from "next/link";
 import {
   FaFacebookF,
@@ -7,7 +9,6 @@ import {
   FaPhoneAlt,
   FaEnvelope,
   FaMapMarkerAlt,
-  FaCrown,
 } from "react-icons/fa";
 
 const Footer = () => {
@@ -16,7 +17,7 @@ const Footer = () => {
       {/* Background image with 60% opacity */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-black opacity-10"
-        style={{ backgroundImage: `url('/footer.jpg')` }}
+        style={{ backgroundImage: `url('/footer.webp')` }}
         aria-hidden="true"
       ></div>
 
@@ -26,22 +27,13 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <h3 className="text-2xl font-bold mb-4 flex items-center">
-              <FaCrown className="mr-2 text-blue-50 -mt-2" />
+              <Image src="/mv-logo.png" alt="" width={818} height={442} style={{ width: 60, height: "auto" }} className="mr-3 shrink-0 object-contain brightness-0 invert" />
               MV Teknaf
             </h3>
               <p className="text-gray-400 mb-4 max-w-md">
-              Experience luxury sea cruises from Teknaf to Saint Martin's Island with premium
+              Experience luxury sea cruises from Teknaf to Saint Martin&apos;s Island with premium
               amenities, breathtaking ocean views, and exceptional service.
             </p>
-
-            <div className="flex space-x-4 mb-6">
-              <a href="https://www.facebook.com/share/1B2q3YxE7r/" className="text-white flex items-center justify-center gap-2   hover:text-gray-300 transition">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
-                </svg>
-                <p className='underline text-blue-200'>www.facebook.com/bookmeltd</p>
-              </a>
-            </div>
 
             <div>
               <h4 className="text-lg font-semibold mb-2">Subscribe to Our Newsletter</h4>
@@ -98,10 +90,10 @@ const Footer = () => {
                 <FaPhoneAlt className="mt-1 mr-3 text-blue-500" />
 
 
-                <Link href="tel:+8801841999922">
+                <Link href={getCallHref()}>
                   <div className="cursor-pointer">
                     <p className="text-gray-400 text-sm">Call Anytime</p>
-                    <p className="font-medium text-sm">01841999922, 01841333322</p>
+                    <p className="font-medium text-sm">{phoneNumbers.join(', ')}</p>
                   </div>
                 </Link>
 

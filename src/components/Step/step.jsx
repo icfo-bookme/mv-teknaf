@@ -1,3 +1,4 @@
+import { getCallHref } from "@/config/contact";
 import Image from "next/image";
 import { Roboto } from 'next/font/google';
 import { Playfair_Display } from 'next/font/google';
@@ -87,7 +88,7 @@ export default function StepProcess() {
             <div className="mt-16 text-center">
                 <h1 className=" text-red-700 font-semibold mb-4">Call Now For Instant Booking</h1>
                 <a
-                    href="tel:+8801841999922" // SSR-friendly
+                    href={getCallHref()} // SSR-friendly
                     className="flex w-40 items-center justify-center mx-auto text-white px-3 py-3 rounded-lg transition-colors shadow-sm hover:shadow-md"
                     style={{ background: 'linear-gradient(90deg, #313881, #0678B4)' }}
                 >

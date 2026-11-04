@@ -1,19 +1,20 @@
+import { contact } from "@/config/contact";
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Banner from "@/components/ui/Banner";
 import Image from "next/image";
 import Link from "next/link";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaCrown } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF } from "react-icons/fa";
 
 export const metadata = {
   title: "Contact Us | MV Teknaf — Sea Cruises",
-  description: "Get in touch with MV Teknaf for sea cruises from CoxCox's Bazarapos;s Bazar to Saint MartinSaint Martin's Islandapos;s Island. Find our office locations, phone numbers, email address, and follow us on social media.",
+  description: "Get in touch with MV Teknaf for sea cruises from Cox's Bazar to Saint Martin's Island. Find our office locations, phone numbers, email address, and follow us on social media.",
 };
 
 export default function ContactUs() {
   return (
     <>
       <Banner
-        imageUrl="/13.png"
+        imageUrl="/SHIP/SHIP6.png"
         title="Contact Us"
         subtitle=""
         heightClass=" h-[50vh] lg:h-[70vh]"
@@ -47,7 +48,7 @@ export default function ContactUs() {
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800">Phone</h3>
                   <p className="text-gray-600">
-                    01841999922 <br />
+                    {contact.primaryPhone} <br />
 
                   </p>
                 </div>
@@ -80,7 +81,7 @@ export default function ContactUs() {
               <div className="md:pt-20">
                 <hr className="border-gray-300 mb-4" />
                 <h3 className="text-2xl text-blue-950 font-bold mb-4 flex items-center">
-                  <FaCrown className="mr-2 text-blue-600 -mt-2" />
+                  <Image src="/mv-logo.png" alt="" width={818} height={442} style={{ width: 60, height: "auto" }} className="mr-3 shrink-0 object-contain brightness-0" />
                   MV Teknaf
                 </h3>
                 <p className="text-gray-700 mb-4 max-w-md">

@@ -1,9 +1,7 @@
-'use client';
-
+import { phoneNumbers, getCallHref, getWhatsAppHref } from "@/config/contact";
 import React from 'react';
 import Image from 'next/image';
 import { Playfair_Display } from 'next/font/google';
-import { IoLogoWhatsapp } from "react-icons/io";
 // Import the Playfair font
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -21,7 +19,7 @@ const Banner = ({ imageUrl, ship, title, subtitle, heightClass }) => {
       <Image
         src={imageUrl || defaultImage}
         alt={title || "Banner Image"}
-        fill
+        fill sizes="100vw"
         className="object-cover"
         priority
       />
@@ -57,28 +55,29 @@ const Banner = ({ imageUrl, ship, title, subtitle, heightClass }) => {
           {/* Call Buttons */}
           <div className="flex flex-row flex-wrap gap-2 sm:gap-3 mt-4">
             {/* Call Now button */}
-            <button
-              onClick={() => window.location.href = 'tel:+880123456789'}
+            <a
+              href={getCallHref()}
               className="flex items-center justify-center font-bold  text-white border-2 border-white px-2 py-1 lg:px-4 lg:py-2 rounded-3xl shadow-lg hover:bg-black/20 transition-all duration-300 text-[11px] md:text-sm"
             >
-
               Call Now →
-            </button>
+            </a>
 
             {/* Phone Numbers */}
-            {['01841999922', '01841333322'].map((number, index) => (
-              <button
-                key={index}
-                onClick={() => window.location.href = `tel:${number}`}
+            {phoneNumbers.map((number) => (
+              <a
+                key={number}
+                href={getCallHref(number)}
                 className=" backdrop-blur-sm text-white border border-white font-medium px-2 py-1 lg:px-4 lg:py-2 rounded-3xl shadow-lg hover:bg-white/20 transition-all duration-300 text-[11px] md:text-sm"
               >
                 {number}
-              </button>
+              </a>
             ))}
           </div>
-          <button
-            onClick={() => window.open('https://wa.me/+8801841999922', '_blank')}
-            className={`${playfair.className} flex items-center justify-center bg-[#C70909] text-white font-medium px-4 py-2 rounded-3xl shadow-lg hover:bg-white hover:text-red-800 transition-all duration-300 text-sm md:text-base`}
+          <a
+            href={getWhatsAppHref()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${playfair.className} flex w-fit items-center justify-center bg-[#C70909] text-white font-medium px-4 py-2 rounded-3xl shadow-lg hover:bg-white hover:text-red-800 transition-all duration-300 text-sm md:text-base`}
           >
             <Image
               src="/whatsapp.png"
@@ -88,7 +87,7 @@ const Banner = ({ imageUrl, ship, title, subtitle, heightClass }) => {
               className="mr-2"
             />
             Buy Ticket Now
-          </button>
+          </a>
 
         </div>
       </div>

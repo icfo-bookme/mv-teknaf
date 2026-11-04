@@ -9,6 +9,7 @@ const inter = Inter({
 });
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://mvteknaf.com.bd"),
   title: "MV Teknaf — Sea Cruises from Cox's Bazar to Saint Martin's Island",
   description: "Experience luxury sea cruises in Bangladesh with MV Teknaf from Cox's Bazar to Saint Martin's Island. Book your premium cruise with luxury cabins and easy payment options.",
   keywords: [
@@ -47,13 +48,11 @@ export const metadata = {
   openGraph: {
     title: "MV Teknaf — Luxury Sea Cruises",
     description: "Experience luxury sea cruises from Cox's Bazar to Saint Martin's Island with premium cabins and easy booking.",
-    url: "domain.com", //domain url hobe 
+    url: "/",
     siteName: "MV Teknaf",
     images: [
       {
-        url: "ekta image url hobe, jeta social media te domain share korle show korbe",
-        width: 1200,
-        height: 630,
+        url: "/SHIP/SHIP6.png",
           alt: "MV Teknaf luxury cruise"
       }
     ],

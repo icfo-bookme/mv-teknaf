@@ -1,3 +1,4 @@
+import { contact } from "@/config/contact";
 import React from 'react';
 import { Roboto } from 'next/font/google';
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
@@ -39,7 +40,7 @@ const PaymentMethods = () => {
       serviceCharge: null,
       process: [
         { label: "Address", value: "IFCO Complex (2nd floor), GEC Circle, CDA Avenue, Chattogram" },
-        { label: "Phone", value: "01841999922" }
+        { label: "Phone", value: contact.primaryPhone }
       ]
     }
   ];

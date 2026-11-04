@@ -35,10 +35,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-pseudo-elements')({
-      customPseudoClasses: ['before', 'after'],
-      contentUtilities: true,
-    }),
-  ],
+  plugins: [],
 };

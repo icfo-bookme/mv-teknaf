@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <div>
       <Banner
-        imageUrl="/13.png"
+        imageUrl="/SHIP/SHIP6.png"
         title="Get A Call"
         subtitle=""
         heightClass=" h-[50vh] lg:h-[70vh]"

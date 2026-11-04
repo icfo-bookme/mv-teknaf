@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import { contact, getCallHref, getWhatsAppHref } from "@/config/contact";
+
+
+import React, { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,9 +14,7 @@ import {
   FaWhatsapp,
   FaBars,
   FaTimes,
-  FaChevronRight,
-  FaChevronDown,
-  FaShip
+  FaChevronRight
 } from "react-icons/fa";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
@@ -26,36 +27,15 @@ const Playfair = Playfair_Display({
 
 const BookMeHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isShipsDropdownOpen, setIsShipsDropdownOpen] = useState(false);
   const mobileMenuRef = useRef(null);
-  const shipsDropdownRef = useRef(null);
   const pathname = usePathname();
 
   const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   }, [isMobileMenuOpen]);
 
-  const toggleShipsDropdown = useCallback(() => {
-    setIsShipsDropdownOpen(!isShipsDropdownOpen);
-  }, [isShipsDropdownOpen]);
-
   const closeAllMenus = useCallback(() => {
     setIsMobileMenuOpen(false);
-    setIsShipsDropdownOpen(false);
-  }, []);
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (shipsDropdownRef.current && !shipsDropdownRef.current.contains(event.target)) {
-        setIsShipsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, []);
 
   // Check if a link is active
@@ -67,7 +47,7 @@ const BookMeHeader = () => {
   };
 
   // Mobile menu component
-  const MobileMenu = () => {
+  const renderMobileMenu = () => {
     return (
       <div className={`${roboto.className} h-full flex flex-col overflow-hidden`}>
         {/* Menu Header */}
@@ -79,8 +59,8 @@ const BookMeHeader = () => {
                 <Image
                   src="/mv-logo.png"
                   alt="Ship Logo"
-                  width={60}
-                  height={40}
+                  width={818}
+                  height={442} style={{ width: 60, height: 'auto' }}
                   className="object-contain filter brightness-0 invert"
                   priority
                 />
@@ -89,17 +69,7 @@ const BookMeHeader = () => {
               {/* Main Logo and Text on Right */}
               <div className="flex flex-col ml-2">
                 <span className={`text-white text-sm italic font-semibold tracking-wide ${Playfair.className}`}>MV TEKNAF</span>
-                <div className="flex items-center">
-                  <Image
-                    src="/l.png"
-                    alt="logo"
-                    width={40}
-                    height={16}
-                    className="changeLogo filter brightness-0 invert"
-                    priority
-                  />
-                 <span className="text-xs mt-1 text-white italic">, Sales partner</span>
-                </div>
+                
 
               </div>
             </div>
@@ -173,86 +143,6 @@ const BookMeHeader = () => {
               </Link>
             </li>
 
-            {/* Other Ships Dropdown in Mobile Menu */}
-            <li>
-              <button
-                onClick={toggleShipsDropdown}
-                className="flex items-center justify-between w-full py-3 px-4 text-sm hover:bg-blue-50 rounded-lg transition-colors duration-200 group text-[#00026E]"
-              >
-                <span className="font-medium">Other Ships</span>
-                <FaChevronDown
-                  className={`transition-transform ${isShipsDropdownOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-
-              {isShipsDropdownOpen && (
-                <div className="mt-1 ml-4 pl-2 border-l-2 border-blue-100">
-                  <ul className="space-y-1">
-                    <li>
-                      <Link
-                        href="https://mvrezab.com"
-                        className="flex items-center py-2 px-4 text-sm text-[#00026E] hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        <span>MV Rezab</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="https://symphonywave.com"
-                        className="flex items-center py-2 px-4 text-sm text-[#00026E] hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        <span>Symphony Wave</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="https://mvaralsea.com"
-                        className="flex items-center py-2 px-4 text-sm text-[#00026E] hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        <span>MV Aral Sea</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="https://mvwave.com"
-                        className="flex items-center py-2 px-4 text-sm text-[#00026E] hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        <span>MV Wave</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="https://mvtheglory.com"
-                        className="flex items-center py-2 px-4 text-sm text-[#00026E] hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        <span>MV The Glory</span>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </li>
-
             <li>
               <Link
                 href="/contact"
@@ -276,13 +166,13 @@ const BookMeHeader = () => {
           <h3 className="text-lg font-semibold text-[#00026E] mb-3">Contact Us</h3>
           <div className="flex items-center space-x-4 mb-4">
             <a
-              href="tel:01841999922"
+              href={getCallHref()}
               className="flex items-center justify-center w-12 h-12 bg-[#00026E] rounded-full text-white hover:bg-[#00026E]/90 transition-colors"
             >
               <FaPhone className="text-xl" />
             </a>
             <a
-              href="https://wa.me/+8801841999922"
+              href={getWhatsAppHref()}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center w-12 h-12 bg-green-500 rounded-full text-white hover:bg-green-600 transition-colors relative"
@@ -294,10 +184,10 @@ const BookMeHeader = () => {
           <div>
             <p className="text-sm text-gray-600">Call Anytime</p>
             <a
-              href="tel:01841999922"
+              href={getCallHref()}
               className="text-lg font-semibold text-[#00026E] hover:underline"
             >
-              01841999922
+              {contact.primaryPhone}
             </a>
           </div>
         </div>
@@ -318,8 +208,8 @@ const BookMeHeader = () => {
                   <Image
                     src="/mv-logo.png"
                     alt="Ship Logo"
-                    width={80}
-                    height={50}
+                    width={818}
+                    height={442} style={{ width: 80, height: 'auto' }}
                     className="object-contain filter brightness-0 invert"
                     priority
                   />
@@ -327,18 +217,8 @@ const BookMeHeader = () => {
 
                 {/* Main Logo and Text on Right */}
                <div className="flex flex-col ml-2">
-                <span className={`text-white text-sm italic font-semibold tracking-wide ${Playfair.className}`}>MV TEKNAF</span>
-                <div className="flex items-center">
-                  <Image
-                    src="/l.png"
-                    alt="logo"
-                    width={50}
-                    height={20}
-                    className="changeLogo filter brightness-0 invert"
-                    priority
-                  />
-                  <span className="text-xs mt-1 text-white italic">, Sales partner</span>
-                </div>
+                <span className={`text-white text-md italic font-semibold tracking-wide ${Playfair.className}`}>MV TEKNAF</span>
+               
 
               </div>
               </Link>
@@ -389,80 +269,6 @@ const BookMeHeader = () => {
                   PAYMENT
                 </Link>
 
-                {/* Other Ships Dropdown for Desktop */}
-                <div className="relative" ref={shipsDropdownRef}>
-                  <button
-                    onClick={toggleShipsDropdown}
-                    className={`text-sm font-semibold transition-colors duration-200 flex items-center ${isShipsDropdownOpen
-                      ? "text-white border-b-2 border-red-100"
-                      : "hover:text-white text-white"
-                      }`}
-                  >
-                    OTHER SHIPS
-                    <FaChevronDown
-                      className={`ml-1 transition-transform ${isShipsDropdownOpen ? "rotate-180" : ""}`}
-                    />
-                  </button>
-
-                  {isShipsDropdownOpen && (
-                    <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50 max-h-80 overflow-y-auto">
-
-
-
-                      <Link
-                        href="https://mvrezab.com"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 flex items-center"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        MV Rezab
-                      </Link>
-                      <Link
-                        href="https://symphonywave.com"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 flex items-center"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        Symphony Wave
-                      </Link>
-                      <Link
-                        href="https://mvaralsea.com"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 flex items-center"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        MV Aral Sea
-                      </Link>
-                      <Link
-                        href="https://mvwave.com"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 flex items-center"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        MV Wave
-                      </Link>
-                      <Link
-                        href="https://mvtheglory.com"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 flex items-center"
-                        onClick={closeAllMenus}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <FaShip className="mr-2 text-blue-400" />
-                        MV The Glory
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
                 <Link
                   href="/contact"
                   className={`text-sm font-semibold transition-colors duration-200 ${isActiveLink("/contact")
@@ -479,7 +285,7 @@ const BookMeHeader = () => {
               <div className="ml-3 hidden lg:flex items-center justify-center gap-2">
                 <div className="flex items-center">
                   <a
-                    href="tel:01841999922"
+                    href={getCallHref()}
                     className="ml-[10px] mt-[9px]"
                   >
                     <div className="phone-call md:w-[50px] md:h-[50px] w-[36px] h-[36px] ml-[15px]">
@@ -487,7 +293,7 @@ const BookMeHeader = () => {
                     </div>
                   </a>
                   <a
-                    href="https://wa.me/+8801841999922"
+                    href={getWhatsAppHref()}
                     className="mr-[10px] ml-[5px]"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -500,8 +306,8 @@ const BookMeHeader = () => {
                   <div>
                     <p className="text-sm text-white">Call Anytime</p>
                     <h4 className="text-lg font-semibold">
-                      <a href="tel:01841999922" className="text-white">
-                        01841999922
+                      <a href={getCallHref()} className="text-white">
+                        {contact.primaryPhone}
                       </a>
                     </h4>
                   </div>
@@ -511,13 +317,13 @@ const BookMeHeader = () => {
               {/* Mobile Menu Button and Icons */}
               <div className="lg:hidden  flex items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <a href="tel:01841999922" className="w-[38px] h-[38px]">
+                  <a href={getCallHref()} className="w-[38px] h-[38px]">
                     <div className="phone-call w-[36px] h-[36px]">
                       <FaPhone className="mt-[9px] ml-[10px]" />
                     </div>
                   </a>
                   <a
-                    href="https://wa.me/+8801841999922"
+                    href={getWhatsAppHref()}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-[38px] h-[38px]"
@@ -558,7 +364,7 @@ const BookMeHeader = () => {
               ref={mobileMenuRef}
               className="absolute top-0 right-0 h-full w-4/5 max-w-xs bg-white shadow-xl transform transition-transform duration-300 ease-in-out"
             >
-              <MobileMenu />
+              {renderMobileMenu()}
             </div>
           </div>
         )}
