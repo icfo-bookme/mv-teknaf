@@ -29,3 +29,7 @@ The footer and shared page banner use compressed WebP files. Original images and
 ## Contact numbers
 
 Edit src/config/contact.js to change primaryPhone and secondaryPhone across the website. whatsappPhone defaults to primaryPhone when left empty; set it only for a separate WhatsApp number. Call and WhatsApp URLs are derived automatically. Rebuild and redeploy after changes. Payment merchant and bank account numbers are separate from contact numbers.
+
+## Automatic VPS deployment
+
+Pushes to main trigger deployment to Hostinger VPS without lint or tests. See [deployment setup](docs/deployment.md) for GitHub Secrets, server prerequisites and domain configuration.
