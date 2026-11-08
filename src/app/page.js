@@ -28,7 +28,7 @@ export default async function Home() {
         <Banner
           imageUrl="/SHIP/SHIP6.png"
           ship="MV Teknaf"
-          title="Experience the Ultimate Ocean Cruise"
+          title="Experience the Ultimate Ocean "
           subtitle="Teknaf ↔ Saint Martin's Island"
           heightClass=" h-[65vh] lg:h-[100vh]"
         />
