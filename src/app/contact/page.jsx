@@ -34,8 +34,8 @@ export default function ContactUs() {
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800">Office Address</h3>
                   <p className="text-gray-600">
-                    IFCO Complex (2nd floor), GEC Circle, <br />
-                    CDA Avenue, Chattogram
+                    1147/A (3rd floor), CDA Avenue, <br />
+                    GEC Circle, Chattogram.
                   </p>
                 </div>
               </div>

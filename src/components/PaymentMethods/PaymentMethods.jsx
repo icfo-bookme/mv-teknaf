@@ -39,7 +39,7 @@ const PaymentMethods = () => {
       title: "Cash",
       serviceCharge: null,
       process: [
-        { label: "Address", value: "IFCO Complex (2nd floor), GEC Circle, CDA Avenue, Chattogram" },
+        { label: "Address", value: "1147/A (3rd floor), CDA Avenue, GEC Circle, Chattogram." },
         { label: "Phone", value: contact.primaryPhone }
       ]
     }
