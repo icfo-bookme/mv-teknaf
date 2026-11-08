@@ -1,3 +1,4 @@
+import { ticketMetadata } from "@/lib/pageMetadata";
 import Packages from "@/components/Packages/package";
 import StepProcess from "@/components/Step/step";
 import TermsCancellation from "@/components/TermsCancellation/TermsCancellation";
@@ -5,10 +6,7 @@ import Banner from "@/components/ui/Banner";
 import getFoodAndDescription from "@/lib/getFoodAndDescription";
 import getPackages from "@/lib/getPackages";
 
-export const metadata = {
-  title: "Tickets | MV Teknaf — Sea Cruises from Cox's Bazar to Saint Martin's Island",
-  description: "Book your tickets for MV Teknaf luxury sea cruises from Cox's Bazar to Saint Martin's Island. Secure your cabin, choose your dates, and enjoy a premium cruise experience.",
-}
+export const metadata = ticketMetadata;
 
 
 export default async function Page() {

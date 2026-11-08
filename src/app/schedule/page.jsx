@@ -1,11 +1,9 @@
+import { scheduleMetadata } from "@/lib/pageMetadata";
 import Schedules from "@/components/Schedules/schedules";
 import Banner from "@/components/ui/Banner";
 import getSchedules from "@/lib/getSchedules";
 
-export const metadata = {
-  title: "Schedules | MV Teknaf — Sea Cruises from Cox's Bazar to Saint Martin's Island",
-  description: "Check the latest cruise schedules for MV Teknaf from Cox's Bazar to Saint Martin's Island. View departure times, cabin availability, and plan your luxury sea journey.",
-}
+export const metadata = scheduleMetadata;
 
 
 export default async function Page() {

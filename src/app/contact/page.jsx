@@ -1,3 +1,4 @@
+import { contactMetadata } from "@/lib/pageMetadata";
 import { contact } from "@/config/contact";
 import ContactForm from "@/components/ContactForm/ContactForm";
 import Banner from "@/components/ui/Banner";
@@ -5,10 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFacebookF } from "react-icons/fa";
 
-export const metadata = {
-  title: "Contact Us | MV Teknaf — Sea Cruises",
-  description: "Get in touch with MV Teknaf for sea cruises from Cox's Bazar to Saint Martin's Island. Find our office locations, phone numbers, email address, and follow us on social media.",
-};
+export const metadata = contactMetadata;
 
 export default function ContactUs() {
   return (

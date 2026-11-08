@@ -1,3 +1,4 @@
+import { homeMetadata } from "@/lib/pageMetadata";
 import BlogSection from "@/components/BlogSection/BlogSection";
 import { Contact } from "@/components/Contact/Contact";
 import CruisePromo from "@/components/CruisePromo/CruisePromo";
@@ -13,6 +14,8 @@ import getPackages from "@/lib/getPackages";
 import { getPropertyImages } from "@/lib/getPropertyImages";
 import getSchedules from "@/lib/getSchedules";
 import Image from "next/image";
+
+export const metadata = homeMetadata;
 
 export default async function Home() {
 
