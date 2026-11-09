@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import crownImage from '../../../public/the-crown.jpg';
+import teknafImage from '../../../public/SHIP/SHIP6.png';
 import { Roboto } from 'next/font/google';
 import Link from 'next/link';
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
@@ -39,12 +39,13 @@ export default function CruisePromo() {
       <div className="md:w-1/2 flex justify-center">
         <div className="w-72 h-72 md:w-96 md:h-96 rounded-full border-[15px] border-gray-400 overflow-hidden shadow-lg relative">
           <Image
-            src={crownImage}
+            src={teknafImage}
             alt="MV Teknaf Cruise Ship"
             fill sizes="(min-width: 768px) 354px, 258px"
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'cover', objectPosition: 'right center' }}
             priority
           />
+          <div className="absolute inset-0 bg-blue-600/20 pointer-events-none" aria-hidden="true" />
         </div>
       </div>
     </section>
