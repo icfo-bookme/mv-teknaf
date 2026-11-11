@@ -1,7 +1,7 @@
 // Change contact numbers here to update every section of the website.
 export const contact = {
   primaryPhone: '01841666644',
-  secondaryPhone: '01841999922',
+  secondaryPhone: '',
   // Leave empty to use primaryPhone for WhatsApp as well.
   whatsappPhone: '',
 };
