@@ -10,7 +10,6 @@ import {
     FaExclamationTriangle
 } from 'react-icons/fa';
 import { Roboto } from 'next/font/google';
-import PrimaryButton from '../ui/Button';
 import Link from 'next/link';
 import Modal from '../ui/Modal';
 
@@ -29,20 +28,6 @@ export default function Packages({ packages, foodAndDescription }) {
     const closeModal = () => {
         setIsModalOpen(false);
         setSelectedDescription(null);
-    };
-
-    const handleCall = () => {
-        window.location.href = getCallHref();
-    };
-
-    const handleBook = () => {
-        alert('Redirecting to booking form...');
-    };
-
-    const handleWhatsApp = () => {
-        const message = "Hello, I'm interested in booking a package on MV Teknaf.";
-        const url = getWhatsAppHref(message);
-        window.open(url, '_blank');
     };
 
     const truncateText = (text, wordLimit = 30, charLimit = 200) => {
@@ -229,28 +214,29 @@ export default function Packages({ packages, foodAndDescription }) {
                                                     </div>
 
                                                     <div className="flex gap-3">
-                                                        <button
+                                                        <a
                                                             style={{
                                                                 background: 'linear-gradient(90deg, #313881, #0678B4)',
                                                             }}
-                                                            onClick={handleCall}
+                                                            href={getCallHref()}
                                                             className="flex items-center text-white px-4 py-2 rounded-lg transition-colors shadow-sm hover:shadow-md"
                                                         >
                                                             <FaPhoneAlt className="mr-2" />
                                                             Call Now
-                                                        </button>
+                                                        </a>
 
-                                                        <PrimaryButton
+                                                        <a
                                                             style={{
                                                                 background: 'linear-gradient(90deg, #313881, #0678B4)',
                                                             }}
-                                                            onClick={handleWhatsApp}
-                                                            bgColor="bg-green-800"
-                                                            hoverColor="hover:bg-green-600"
-                                                            icon={FaWhatsapp}
+                                                            href={getWhatsAppHref("Hello, I'm interested in booking a package on MV Teknaf.")}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="flex items-center px-4 py-2 rounded-lg transition-colors shadow-sm hover:shadow-md bg-green-800 hover:bg-green-600 text-white"
                                                         >
+                                                            <FaWhatsapp size={25} className="mr-2" />
                                                             Book Now
-                                                        </PrimaryButton>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
