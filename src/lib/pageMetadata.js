@@ -25,7 +25,7 @@ export function createPageMetadata({ title, description, path, keywords }) {
 
 export const homeMetadata = createPageMetadata({
   path: "/",
-  title: "MV Teknaf Ship Ticket Booking | Online Ticket",
+  title: "MV Teknaf Official Ship Ticket Booking | Online Tickets",
   description: "Book MV Teknaf ship tickets online for Cox's Bazar to Saint Martin. Explore seats, cabins and booking options. এমভি টেকনাফ শিপ টিকিট বুকিং।",
   keywords: [
     "MV Teknaf Ship Ticket Booking", "MV Teknaf Online Ticket", "এমভি টেকনাফ শিপ টিকিট বুকিং",

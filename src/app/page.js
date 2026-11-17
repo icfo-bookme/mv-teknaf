@@ -29,7 +29,7 @@ export default async function Home() {
           imageUrl="/SHIP/SHIP6.png"
           ship="MV Teknaf"
           title="Experience the Ultimate Ocean Cruise"
-          subtitle="Teknaf ↔ Saint Martin's Island"
+          subtitle="Cox's Bazar ↔ Saint Martin's Island"
           heightClass=" h-[65vh] lg:h-[100vh]"
         />
         <StepProcess />
