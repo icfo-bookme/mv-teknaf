@@ -1,3 +1,5 @@
+export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://mvteknaf.com.bd");
+
 // Keep search and social previews aligned for each public landing page.
 export function createPageMetadata({ title, description, path, keywords }) {
   return {

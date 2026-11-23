@@ -56,7 +56,7 @@ export const Contact = () => {
               <FaEnvelope className="text-blue-600 text-xl mt-1" />
               <div>
                 <h3 className="font-semibold text-lg text-gray-800">Email</h3>
-                <p className="text-gray-600">bookmebdltd@gmail.com</p>
+                <p className="text-gray-600">mvteknafbdltd@gmail.com</p>
               </div>
             </div>
 
@@ -66,12 +66,12 @@ export const Contact = () => {
               <div>
                 <h3 className="font-semibold text-lg text-gray-800">Follow Us on Facebook</h3>
                 <Link
-                  href="https://facebook.com/bookmeltd"
+                  href="https://www.facebook.com/mvteknafltd"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:underline"
                 >
-                  www.facebook.com/bookmeltd
+                  www.facebook.com/mvteknafltd
                 </Link>
               </div>
             </div>

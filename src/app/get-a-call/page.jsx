@@ -3,6 +3,7 @@ import Banner from "@/components/ui/Banner";
  // Adjust path as needed
 
 export const metadata = {
+  alternates: { canonical: "/get-a-call" },
   title: "Get a Call | MV Teknaf — Sea Cruises from Cox's Bazar to Saint Martin's Island",
   description: "Request a call from our team to assist with your MV Teknaf sea cruise booking. Get expert guidance, schedule support, and answers to all your queries.",
 }

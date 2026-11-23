@@ -1,4 +1,4 @@
-import { homeMetadata } from "@/lib/pageMetadata";
+import { homeMetadata, siteUrl } from "@/lib/pageMetadata";
 import "./globals.css";
 import Header from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
@@ -11,7 +11,7 @@ const inter = Inter({
 
 export const metadata = {
   ...homeMetadata,
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://mvteknaf.com.bd"),
+  metadataBase: siteUrl,
 };
 
 export default function RootLayout({ children }) {

@@ -102,7 +102,7 @@ const Footer = () => {
                 <FaEnvelope className="mt-1 mr-3 text-blue-500" />
                 <div>
                   <p className="text-gray-400 text-sm">Email</p>
-                  <p className="font-medium text-sm">bookmebdltd@gmail.com</p>
+                  <p className="font-medium text-sm">mvteknafbdltd@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-start">
