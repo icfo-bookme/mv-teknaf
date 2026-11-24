@@ -1,5 +1,6 @@
 "use client";
 
+import TrackedLink from "@/components/analytics/TrackedLink";
 import { contact, getCallHref, getWhatsAppHref } from "@/config/contact";
 
 
@@ -165,13 +166,15 @@ const BookMeHeader = () => {
         <div className="p-4 border-t border-gray-200 bg-gray-50">
           <h3 className="text-lg font-semibold text-[#00026E] mb-3">Contact Us</h3>
           <div className="flex items-center space-x-4 mb-4">
-            <a
+            <TrackedLink
+              location="navbar_mobile"
               href={getCallHref()}
               className="flex items-center justify-center w-12 h-12 bg-[#00026E] rounded-full text-white hover:bg-[#00026E]/90 transition-colors"
             >
               <FaPhone className="text-xl" />
-            </a>
-            <a
+            </TrackedLink>
+            <TrackedLink
+              location="navbar_mobile"
               href={getWhatsAppHref()}
               target="_blank"
               rel="noopener noreferrer"
@@ -179,16 +182,17 @@ const BookMeHeader = () => {
             >
               <span className="absolute animate-ping opacity-75 inline-flex h-full w-full rounded-full bg-green-400"></span>
               <FaWhatsapp className="text-xl z-10" />
-            </a>
+            </TrackedLink>
           </div>
           <div>
             <p className="text-sm text-gray-600">Call Anytime</p>
-            <a
+            <TrackedLink
+              location="navbar_mobile"
               href={getCallHref()}
               className="text-lg font-semibold text-[#00026E] hover:underline"
             >
               {contact.primaryPhone}
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </div>
@@ -284,15 +288,17 @@ const BookMeHeader = () => {
               {/* Desktop Contact Info */}
               <div className="ml-3 hidden lg:flex items-center justify-center gap-2">
                 <div className="flex items-center">
-                  <a
+                  <TrackedLink
+                    location="navbar_desktop"
                     href={getCallHref()}
                     className="ml-[10px] mt-[9px]"
                   >
                     <div className="phone-call md:w-[50px] md:h-[50px] w-[36px] h-[36px] ml-[15px]">
                       <FaPhone className="md:ml-[17px] md:mt-[17px] mt-[8px] ml-[11px]" />
                     </div>
-                  </a>
-                  <a
+                  </TrackedLink>
+                  <TrackedLink
+                    location="navbar_desktop"
                     href={getWhatsAppHref()}
                     className="mr-[10px] ml-[5px]"
                     target="_blank"
@@ -301,14 +307,14 @@ const BookMeHeader = () => {
                     <span className="btn-whatsapp-pulse btn-whatsapp-pulse-border md:w-[50px] md:h-[50px] w-[36px] h-[36px] md:mt-[0px] mt-[-5px] ml-[15px]">
                       <FaWhatsapp className="w-[25px] h-[25px] text-white" />
                     </span>
-                  </a>
+                  </TrackedLink>
 
                   <div>
                     <p className="text-sm text-white">Call Anytime</p>
                     <h4 className="text-lg font-semibold">
-                      <a href={getCallHref()} className="text-white">
+                      <TrackedLink location="navbar_desktop" href={getCallHref()} className="text-white">
                         {contact.primaryPhone}
-                      </a>
+                      </TrackedLink>
                     </h4>
                   </div>
                 </div>
@@ -317,12 +323,13 @@ const BookMeHeader = () => {
               {/* Mobile Menu Button and Icons */}
               <div className="lg:hidden  flex items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <a href={getCallHref()} className="w-[38px] h-[38px]">
+                  <TrackedLink location="navbar_mobile" href={getCallHref()} className="w-[38px] h-[38px]">
                     <div className="phone-call w-[36px] h-[36px]">
                       <FaPhone className="mt-[9px] ml-[10px]" />
                     </div>
-                  </a>
-                  <a
+                  </TrackedLink>
+                  <TrackedLink
+                    location="navbar_mobile"
                     href={getWhatsAppHref()}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -331,7 +338,7 @@ const BookMeHeader = () => {
                     <span className="btn-whatsapp-pulse btn-whatsapp-pulse-border w-[36px] h-[36px]">
                       <FaWhatsapp className="w-[20px] h-[20px] text-white mt-[0px] ml-[0px]" />
                     </span>
-                  </a>
+                  </TrackedLink>
                 </div>
 
                 <button

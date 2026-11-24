@@ -1,4 +1,5 @@
 'use client';
+import TrackedLink from "@/components/analytics/TrackedLink";
 import { getCallHref, getWhatsAppHref } from "@/config/contact";
 import { useState } from 'react';
 import Image from 'next/image';
@@ -214,7 +215,8 @@ export default function Packages({ packages, foodAndDescription }) {
                                                     </div>
 
                                                     <div className="flex gap-3">
-                                                        <a
+                                                        <TrackedLink
+                                                          location="packages"
                                                             style={{
                                                                 background: 'linear-gradient(90deg, #313881, #0678B4)',
                                                             }}
@@ -223,9 +225,10 @@ export default function Packages({ packages, foodAndDescription }) {
                                                         >
                                                             <FaPhoneAlt className="mr-2" />
                                                             Call Now
-                                                        </a>
+                                                        </TrackedLink>
 
-                                                        <a
+                                                        <TrackedLink
+                                                          location="packages"
                                                             style={{
                                                                 background: 'linear-gradient(90deg, #313881, #0678B4)',
                                                             }}
@@ -236,7 +239,7 @@ export default function Packages({ packages, foodAndDescription }) {
                                                         >
                                                             <FaWhatsapp size={25} className="mr-2" />
                                                             Book Now
-                                                        </a>
+                                                        </TrackedLink>
                                                     </div>
                                                 </div>
                                             </div>

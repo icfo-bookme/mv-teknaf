@@ -5,8 +5,9 @@ import emailjs from "@emailjs/browser";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import postPackageInfo from "@/lib/postPacageInfo";
+import { EVENTS, trackEvent } from "@/lib/analytics";
 
-const ContactForm = ({ title }) => {
+const ContactForm = ({ title, trackingLocation = "contact_form" }) => {
     const {
         register,
         handleSubmit,
@@ -32,6 +33,7 @@ const ContactForm = ({ title }) => {
 
         try {
             await postPackageInfo(apiData);
+            trackEvent(EVENTS.lead, trackingLocation);
             // The saved consultation is authoritative; notification failure must not invite duplicate submissions.
             reset();
             toast.success("Submitted successfully. Our team will contact you shortly.");

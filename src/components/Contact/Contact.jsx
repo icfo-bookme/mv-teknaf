@@ -90,7 +90,7 @@ export const Contact = () => {
 
           {/* Optional: Contact Form */}
           <div className="px-3">
-            <ContactForm title="show" />
+            <ContactForm title="show" trackingLocation="contact_section" />
           </div>
         </div>
       </div>

@@ -1,26 +1,17 @@
 "use client";
 
+import TrackedLink from "@/components/analytics/TrackedLink";
 import { getCallHref, getWhatsAppHref } from "@/config/contact";
 
 
-import PrimaryButton from "@/components/ui/Button";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
 const CTAButtons = () => {
-  const handleCall = () => {
-    window.location.href = getCallHref();
-  };
-
-  const handleWhatsApp = () => {
-    const message = "Hello, I'm interested in booking a package on MV Teknaf.";
-    const url = getWhatsAppHref(message);
-    window.open(url, "_blank");
-  };
-
   return (
     <div className="flex flex-row items-center justify-center gap-4 mt-5 mb-10">
-      <button
-        onClick={handleCall}
+      <TrackedLink
+        href={getCallHref()}
+        location="payment_cta"
         className="flex items-center text-white px-4 py-2 rounded-lg transition-colors shadow-sm hover:shadow-md"
         style={{
           background: "linear-gradient(90deg, #313881, #0678B4)",
@@ -28,19 +19,21 @@ const CTAButtons = () => {
       >
         <FaPhoneAlt className="mr-2" />
         Call Now
-      </button>
+      </TrackedLink>
 
-      <PrimaryButton
-        onClick={handleWhatsApp}
+      <TrackedLink
+        href={getWhatsAppHref("Hello, I'm interested in booking a package on MV Teknaf.")}
+        location="payment_cta"
+        target="_blank"
+        rel="noopener noreferrer"
         style={{
           background: "linear-gradient(90deg, #313881, #0678B4)",
         }}
-        bgColor="bg-green-800"
-        hoverColor="hover:bg-green-600"
-        icon={FaWhatsapp}
+        className="flex items-center px-4 py-2 rounded-lg transition-colors shadow-sm hover:shadow-md bg-green-800 hover:bg-green-600 text-white"
       >
+        <FaWhatsapp size={25} className="mr-2" />
         Book Now
-      </PrimaryButton>
+      </TrackedLink>
     </div>
   );
 };

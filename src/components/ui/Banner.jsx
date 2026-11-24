@@ -1,3 +1,4 @@
+import TrackedLink from "@/components/analytics/TrackedLink";
 import { phoneNumbers, getCallHref, getWhatsAppHref } from "@/config/contact";
 import React from 'react';
 import Image from 'next/image';
@@ -55,25 +56,28 @@ const Banner = ({ imageUrl, ship, title, subtitle, heightClass }) => {
           {/* Call Buttons */}
           <div className="flex flex-row flex-wrap gap-2 sm:gap-3 mt-4">
             {/* Call Now button */}
-            <a
+            <TrackedLink
+              location="banner"
               href={getCallHref()}
               className="flex items-center justify-center font-bold  text-white border-2 border-white px-2 py-1 lg:px-4 lg:py-2 rounded-3xl shadow-lg hover:bg-black/20 transition-all duration-300 text-[11px] md:text-sm"
             >
               Call Now →
-            </a>
+            </TrackedLink>
 
             {/* Phone Numbers */}
             {phoneNumbers.map((number) => (
-              <a
+              <TrackedLink
+                location="banner"
                 key={number}
                 href={getCallHref(number)}
                 className=" backdrop-blur-sm text-white border border-white font-medium px-2 py-1 lg:px-4 lg:py-2 rounded-3xl shadow-lg hover:bg-white/20 transition-all duration-300 text-[11px] md:text-sm"
               >
                 {number}
-              </a>
+              </TrackedLink>
             ))}
           </div>
-          <a
+          <TrackedLink
+            location="banner"
             href={getWhatsAppHref()}
             target="_blank"
             rel="noopener noreferrer"
@@ -87,7 +91,7 @@ const Banner = ({ imageUrl, ship, title, subtitle, heightClass }) => {
               className="mr-2"
             />
             Buy Ticket Now
-          </a>
+          </TrackedLink>
 
         </div>
       </div>

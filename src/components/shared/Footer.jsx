@@ -1,3 +1,4 @@
+import TrackedLink from "@/components/analytics/TrackedLink";
 import Image from "next/image";
 import { phoneNumbers, getCallHref } from "@/config/contact";
 import Link from "next/link";
@@ -90,12 +91,12 @@ const Footer = () => {
                 <FaPhoneAlt className="mt-1 mr-3 text-blue-500" />
 
 
-                <Link href={getCallHref()}>
+                <TrackedLink location="footer" href={getCallHref()}>
                   <div className="cursor-pointer">
                     <p className="text-gray-400 text-sm">Call Anytime</p>
                     <p className="font-medium text-sm">{phoneNumbers.join(', ')}</p>
                   </div>
-                </Link>
+                </TrackedLink>
 
               </div>
               <div className="flex items-start">

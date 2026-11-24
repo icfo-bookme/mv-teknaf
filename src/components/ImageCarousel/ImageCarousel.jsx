@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import TrackedLink from "@/components/analytics/TrackedLink";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -175,8 +176,8 @@ export default function ImageCarousel({ propertyImages }) {
         <div className="mt-6 flex flex-col items-center justify-between gap-4 rounded-xl bg-blue-50/60 px-5 py-5 text-center sm:flex-row sm:text-left">
           <p className="text-sm text-slate-600">Like what you see? <span className="font-medium text-blue-950">Plan your journey with us.</span></p>
           <div className="flex flex-wrap justify-center gap-3">
-            <a href={getCallHref()} className="inline-flex items-center justify-center gap-2 rounded-lg border border-blue-900/20 bg-white px-4 py-2.5 text-sm font-semibold text-blue-950 transition hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-700"><FaPhoneAlt size={13} aria-hidden="true" />Call Now</a>
-            <a href={getWhatsAppHref("Hello, I'm interested in booking a package on MV Teknaf.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"><FaWhatsapp size={18} aria-hidden="true" />Book Now</a>
+            <TrackedLink location="image_carousel" href={getCallHref()} className="inline-flex items-center justify-center gap-2 rounded-lg border border-blue-900/20 bg-white px-4 py-2.5 text-sm font-semibold text-blue-950 transition hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-700"><FaPhoneAlt size={13} aria-hidden="true" />Call Now</TrackedLink>
+            <TrackedLink location="image_carousel" href={getWhatsAppHref("Hello, I'm interested in booking a package on MV Teknaf.")} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"><FaWhatsapp size={18} aria-hidden="true" />Book Now</TrackedLink>
           </div>
         </div>
       </div>

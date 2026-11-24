@@ -91,7 +91,7 @@ export default function ContactUs() {
 
             {/* Optional: Contact Form */}
             <div className="px-3">
-              <ContactForm title="show" />
+              <ContactForm title="show" trackingLocation="contact_page" />
             </div>
           </div>
         </div>

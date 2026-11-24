@@ -1,12 +1,12 @@
 'use client';
 
+import TrackedLink from "@/components/analytics/TrackedLink";
 import { getCallHref, getWhatsAppHref } from "@/config/contact";
 
 
 import { useState } from 'react';
 import { Roboto } from 'next/font/google';
 import { FaPhoneAlt, FaWhatsapp } from 'react-icons/fa';
-import PrimaryButton from '../ui/Button';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -52,16 +52,6 @@ export default function Schedules({ schedules }) {
         const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
 
         return `${hours}h ${minutes}m`;
-    };
-
-    const handleCall = () => {
-        window.location.href = getCallHref();
-    };
-
-    const handleWhatsApp = () => {
-        const message = "Hello, I am interested in booking a package on MV Teknaf.";
-        const url = getWhatsAppHref(message);
-        window.open(url, '_blank');
     };
 
     return (
@@ -134,27 +124,30 @@ export default function Schedules({ schedules }) {
 
             {/* Buttons */}
             <div className="flex flex-row items-center justify-center gap-4 mt-6 mb-10 ">
-                <button
+                <TrackedLink
                     style={{
                         background: 'linear-gradient(90deg, #313881, #0678B4)',
                     }}
-                    onClick={handleCall}
+                    href={getCallHref()}
+                    location="schedules"
                     className="flex items-center text-white px-4 py-2 rounded-lg transition-colors shadow-sm hover:shadow-md"
                 >
                     <FaPhoneAlt className="mr-2" />
                     Call Now
-                </button>
-                <PrimaryButton
-                    onClick={handleWhatsApp}
+                </TrackedLink>
+                <TrackedLink
+                    href={getWhatsAppHref("Hello, I am interested in booking a package on MV Teknaf.")}
+                    location="schedules"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                         background: 'linear-gradient(90deg, #313881, #0678B4)',
                     }}
-                    bgColor="bg-green-800"
-                    hoverColor="hover:bg-green-600"
-                    icon={FaWhatsapp}
+                    className="flex items-center px-4 py-2 rounded-lg transition-colors shadow-sm hover:shadow-md bg-green-800 hover:bg-green-600 text-white"
                 >
+                    <FaWhatsapp size={25} className="mr-2" />
                     Book Now
-                </PrimaryButton>
+                </TrackedLink>
             </div>
         </div>
     );
